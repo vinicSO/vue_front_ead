@@ -50,7 +50,7 @@
             <span>
               <p class="fontSmall">
                 Acessar?
-                <router-link to="{ name: 'auth' }" class="link primary">Clique aqui</router-link>
+                <router-link :to="{ name: 'auth' }" class="link primary">Clique aqui</router-link>
               </p>
             </span>
           </div>
