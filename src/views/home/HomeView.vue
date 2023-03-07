@@ -23,9 +23,18 @@
 
 <script>
   import CardCourse from "@/views/home/components/CardCourse.vue";
+  import { onMounted } from "vue";
+import { useStore } from "vuex";
 
   export default {
     name: 'HomeView',
+    setup() {
+      const store = useStore()
+
+      onMounted(() => {
+        store.dispatch('getCourses')
+      })
+    },
     components: {
       CardCourse
     }
