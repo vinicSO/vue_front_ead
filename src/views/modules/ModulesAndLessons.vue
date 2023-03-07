@@ -1,49 +1,58 @@
 <template>
-  <div>
-    <div class="pageTitle">
-      <span class="title">Curso X</span>
-      <span class="dots">
-        <span></span>
-        <span></span>
-        <span></span>
-      </span>
-    </div>
+	<div>
+		<div class="pageTitle">
+			<span class="title">{{ course.name }}</span>
+			<span class="dots">
+				<span></span>
+				<span></span>
+				<span></span>
+			</span>
+		</div>
 
-    <div class="content">
-      <div class="container">
+		<div class="content">
+			<div class="container">
 
-        <Modules />
+				<Modules />
 
-        <div class="right">
-          <div class="content">
+				<div class="right">
+					<div class="content">
 
-            <Player />
+						<Player />
 
-            <SupportsLesson />
+						<SupportsLesson />
 
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
 
-  import Modules from "@/views/modules/Components/Modules.vue";
-  import Player from "@/views/modules/Components/Player.vue";
-  import SupportsLesson from "@/views/modules/Components/Supports.vue";
+	import Modules from "@/views/modules/Components/Modules.vue";
+	import Player from "@/views/modules/Components/Player.vue";
+	import SupportsLesson from "@/views/modules/Components/Supports.vue";
+	import { computed } from "vue";
+	import { useStore } from "vuex";
 
-  export default {
-    name: "ModulesAndLessons",
-    components: {
-      SupportsLesson,
-      Modules,
-      Player
-    }
-  }
-  </script>
+	export default {
+		name: "ModulesAndLessons",
+		setup() {
+			const store = useStore()
 
-  <style scoped>
+			const course = computed(() => store.state.courses.courseSelected)
 
-</style>
+			return {
+				course
+			}
+		},
+		components: {
+			SupportsLesson,
+			Modules,
+			Player
+		}
+	}
+</script>
+
+<style scoped></style>
