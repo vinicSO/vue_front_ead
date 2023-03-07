@@ -4,7 +4,12 @@ export default class AuthService extends BasicService {
 
     static async auth (params) {
 
-        return this.request({auth: true})
-            .post('/auth', params)
+        return new Promise((resolve, reject) => {
+
+            this.request()
+                .post('/auth', params)
+                .then(response => resolve(response))
+                .catch(error => reject(error.response))
+        })
     }
 }
