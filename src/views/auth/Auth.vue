@@ -50,7 +50,7 @@
                 <input type="password" name="password" placeholder="Senha" required>
                 <i class="far fa-eye buttom"></i>
               </div>
-              <button class="btn primary" type="submit"  @click.prevent="login">Login</button>
+              <button class="btn primary" type="submit"  @click.prevent="auth">Login</button>
             </form>
             <span>
               <p class="fontSmall">
@@ -69,19 +69,25 @@
 </template>
 
 <script>
-  import router from "@/router";
+  import { useStore } from "vuex";
 
   export default {
     // eslint-disable-next-line vue/multi-word-component-names
     name: "Auth",
     setup() {
-      // eslint-disable-next-line no-unused-vars
-      const login = () => router.push({
-        name: 'campus.home'
-      })
+
+      const store = useStore()
+
+      const auth = () => {
+        store.dispatch('auth', {
+          email: 'vinicius@engeselt.com',
+          password: '123456',
+          device_name: 'teste'
+        })
+      }
 
       return {
-        login
+        auth
       }
     }
   }
