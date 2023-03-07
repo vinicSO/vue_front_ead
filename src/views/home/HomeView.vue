@@ -14,9 +14,8 @@
       <CardCourse
         v-for="course in allCourses"
         :key="course.id"
-        :title="course.name"
-        :image="course.image"
         :bg_name="'laravel'"
+        :course="course"
       />
     </ul>
   </div>
