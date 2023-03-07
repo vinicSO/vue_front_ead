@@ -70,6 +70,7 @@
   
 <script>
     import router from "@/router";
+    import { notify } from "@kyvg/vue3-notification";
     import ResetPasswordService from "@/services/ResetPasswordService";
     import { ref } from "vue";
 
@@ -96,8 +97,21 @@
                     password: password.value,
                     token: props.token
                 })
-                    .then(() => router.push({ name: 'auth' }))
-                    .catch(() => alert('error'))
+                    .then(() => {
+                        notify({
+                            title: 'Sucesso',
+                            text: 'Senha atualizada com sucesso',
+                            type: 'success'
+                        })
+
+                        router.push({ name: 'auth' })
+                    })
+                    .catch(() => notify({
+                            title: 'Erro',
+                            text: 'Falha ao recuperar o usuário',
+                            type: 'warn'
+                        })
+                    )
                     .finally(() => loading.value = false)
             }
 

@@ -1,13 +1,11 @@
 <template>
-  <section id="loginPage"
-           :style="{ backgroundImage: 'url(' + require('@/assets/images/bgLogin.jpg') + ')' }"
-  >
+  <section id="loginPage" :style="{ backgroundImage: 'url(' + require('@/assets/images/bgLogin.jpg') + ')' }">
     <div class="loginContent">
       <div class="loginCard">
         <div class="decor" style="background-image: url('./assets/images/building.jpg');">
           <div class="content">
             <span class="logo">
-              <img :src=" require('@/assets/images/logo.svg') " alt="EspecializaTI">
+              <img :src="require('@/assets/images/logo.svg')" alt="EspecializaTI">
             </span>
             <span class="dots">
               <span></span>
@@ -16,7 +14,8 @@
             </span>
             <span class="description">
               <p>
-                Os melhores e mais completos cursos de Laravel do Brasil, cursos com projetos reais. Do zero ao profissional.
+                Os melhores e mais completos cursos de Laravel do Brasil, cursos com projetos reais. Do zero ao
+                profissional.
               </p>
             </span>
             <span class="copyright fontSmall">
@@ -27,7 +26,7 @@
         <div class="login">
           <div class="content">
             <span class="logo">
-              <img :src="[ './assets/images/logoDark.svg' ]" alt="">
+              <img :src="['./assets/images/logoDark.svg']" alt="">
             </span>
             <span>
               <p>Seja muito bem vindo!</p>
@@ -45,15 +44,11 @@
                 <i class="far fa-envelope"></i>
                 <input type="email" name="email" placeholder="Email" v-model="email" required>
               </div>
-              <button 
-                :class="[
-                  'btn',
-                  'primary',
-                  loading ? 'loading' : ''
-                ]" 
-                type="submit"
-                @click.prevent="forgotPassword"
-              >
+              <button :class="[
+                'btn',
+                'primary',
+                loading ? 'loading' : ''
+              ]" type="submit" @click.prevent="forgotPassword">
                 <span v-if="loading">Recuperando...</span>
                 <span v-else>Recuperar Senha</span>
               </button>
@@ -75,35 +70,44 @@
 </template>
 
 <script>
-  import { ref } from 'vue';
-  import { useStore } from 'vuex';
+import { ref } from 'vue';
+import { useStore } from 'vuex';
+import { notify } from "@kyvg/vue3-notification";
 
-  export default {
-    // eslint-disable-next-line vue/multi-word-component-names
-    name: "ForgotPassword",
-    setup() {
-      const store = useStore()
-      const email = ref("")
-      const loading = ref(false)
+export default {
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: "ForgotPassword",
+  setup() {
+    const store = useStore()
+    const email = ref("")
+    const loading = ref(false)
 
-      const forgotPassword = () => {
-        loading.value = true
+    const forgotPassword = () => {
+      loading.value = true
 
-        store.dispatch('forgotPassword', {email: email.value})
-          .then(() => alert('Confira o seu e-mail.'))
-          .catch(() => alert('error'))
-          .finally(() => loading.value = false)
-      }
+      store.dispatch('forgotPassword', { email: email.value })
+        .then(() => notify({
+            title: 'Sucesso',
+            text: 'Confira o seu e-mail',
+            type: 'success'
+          })
+        )
+        .catch(() => notify({
+            title: 'Erro',
+            text: 'Falha ao recuperar o usuário',
+            type: 'warn'
+          })
+        )
+        .finally(() => loading.value = false)
+    }
 
-      return {
-        email,
-        forgotPassword,
-        loading
-      }
+    return {
+      email,
+      forgotPassword,
+      loading
     }
   }
+}
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

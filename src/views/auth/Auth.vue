@@ -81,6 +81,7 @@
 
 <script>
   import router from "@/router";
+  import { notify } from "@kyvg/vue3-notification";
   import { ref } from "vue";
   import { useStore } from "vuex";
 
@@ -104,7 +105,20 @@
           device_name: 'vue3_web'
         })
           .then(() => router.push({name: 'campus.home'}))
-          .catch(() => alert('error'))
+          .catch(error => {
+
+            let msgError = 'Falha na requisição'
+
+            if (error.status === 422) msgError = 'E-mail e/ou senha incorretos'
+
+            else if (error.status === 404) msgError = 'Usuário não encontrado'
+
+            notify({
+              title: 'Erro ao efetuar o login',
+              text: msgError,
+              type: 'warn'
+            })
+          })
           .finally(() => loading.value = false)
       }
 
