@@ -66,7 +66,7 @@
             <span>
               <p class="fontSmall">
                 Esqueceu sua senha?
-                <router-link :to="{ name: 'forget.password' }" class="link primary">Clique aqui</router-link>
+                <router-link :to="{ name: 'forgot.password' }" class="link primary">Clique aqui</router-link>
               </p>
             </span>
           </div>
@@ -81,8 +81,8 @@
 
 <script>
   import router from "@/router";
-import { ref } from "vue";
-import { useStore } from "vuex";
+  import { ref } from "vue";
+  import { useStore } from "vuex";
 
   export default {
     // eslint-disable-next-line vue/multi-word-component-names

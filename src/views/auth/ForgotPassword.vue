@@ -43,9 +43,20 @@
             <form action="/dist/index.html" method="">
               <div class="groupForm">
                 <i class="far fa-envelope"></i>
-                <input type="email" name="email" placeholder="Email" required>
+                <input type="email" name="email" placeholder="Email" v-model="email" required>
               </div>
-              <button class="btn primary" type="submit">Recuperar</button>
+              <button 
+                :class="[
+                  'btn',
+                  'primary',
+                  loading ? 'loading' : ''
+                ]" 
+                type="submit"
+                @click.prevent="forgotPassword"
+              >
+                <span v-if="loading">Recuperando...</span>
+                <span v-else>Recuperar Senha</span>
+              </button>
             </form>
             <span>
               <p class="fontSmall">
@@ -64,9 +75,32 @@
 </template>
 
 <script>
+  import { ref } from 'vue';
+  import { useStore } from 'vuex';
+
   export default {
     // eslint-disable-next-line vue/multi-word-component-names
-    name: "ForgetPassword"
+    name: "ForgotPassword",
+    setup() {
+      const store = useStore()
+      const email = ref("")
+      const loading = ref(false)
+
+      const forgotPassword = () => {
+        loading.value = true
+
+        store.dispatch('forgotPassword', {email: email.value})
+          .then(() => alert('Confira o seu e-mail.'))
+          .catch(() => alert('error'))
+          .finally(() => loading.value = false)
+      }
+
+      return {
+        email,
+        forgotPassword,
+        loading
+      }
+    }
   }
 </script>
 
