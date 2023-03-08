@@ -36,4 +36,17 @@ export default class SupportService extends BasicService {
                 .catch(error => reject(error.response))
         })
     }
+
+    static async getMySupports (status = '') {
+
+        return new Promise((resolve, reject) => {
+
+            this.request({auth:true})
+                .get('/supports/my', {
+                    params: {status}
+                })
+                .then(response => resolve(response.data))
+                .catch(error => reject(error.response))
+        })
+    }
 }
