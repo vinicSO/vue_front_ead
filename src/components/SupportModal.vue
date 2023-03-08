@@ -74,10 +74,14 @@ import { useStore } from 'vuex';
                 const params = {
                     lesson: lesson.value.id,
                     description: description.value,
-                    status: 'P'
+                    status: 'P',
+                    support: props.supportReply
                 }
 
-                store.dispatch('createSupport', params)
+                let actionName = 'createSupport'
+                if (props.supportReply != '') actionName = 'createReply'
+
+                store.dispatch(actionName, params)
                     .then(() => {
                         description.value = ""
 
@@ -90,7 +94,6 @@ import { useStore } from 'vuex';
                 description,
                 loading,
                 sendForm,
-
             }
         }
     }

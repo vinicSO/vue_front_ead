@@ -6,7 +6,7 @@
     <div class="header">
         <span class="title">Dúvidas <span v-if="loading">(Carregando...)</span><span v-else>({{ supports.length }})</span></span>
             <button
-                @click.prevent="modal.showModal = true"
+                @click.prevent="openModal"
                 class="btn primary"
             >
             <i class="fas fa-plus"></i>
@@ -33,41 +33,47 @@
 
     export default {
         name: "SupportsLesson",
-    components: {
-        Supports,
-        SupportModal
-    },
-    setup() {
-        const store = useStore()
+        components: {
+            Supports,
+            SupportModal
+        },
+        setup() {
+            const store = useStore()
 
-        const lesson = computed(() => store.state.courses.lessonPlayer)
-        const supports = computed(() => store.state.supports.supports.data)
+            const lesson = computed(() => store.state.courses.lessonPlayer)
+            const supports = computed(() => store.state.supports.supports.data)
 
-        const loading = ref(false)
-
-        const modal = ref({
-            showModal: false,
-            supportReply: ''
-        })
-
-        watch(
-            () => store.state.courses.lessonPlayer,
-            () => {
-            loading.value = true
-
-            store.dispatch('getSupportsByLesson', lesson.value.id)
-                .finally(() => loading.value = false)
+            const loading = ref(false)
+            
+            const modal = ref({
+                showModal: false,
+                supportReply: ''
+            })
+            
+            const openModal = () => modal.value = {
+                showModal: true,
+                supportReply: ''
             }
-        )
 
-        return {
-            lesson,
-            loading,
-            supports,
-            modal
+            watch(
+                () => store.state.courses.lessonPlayer,
+                () => {
+                loading.value = true
+
+                store.dispatch('getSupportsByLesson', lesson.value.id)
+                    .finally(() => loading.value = false)
+                }
+            )
+
+            return {
+                lesson,
+                loading,
+                supports,
+                modal,
+                openModal
+            }
         }
     }
-  }
 </script>
 
 <style scoped>

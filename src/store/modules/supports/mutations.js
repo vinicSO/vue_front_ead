@@ -18,14 +18,13 @@ const mutations = {
         }
     },
 
-    ADD_NEW_REPLY (state, reply, supportId) {
-        newSupports = state.supports.data
-        
-        updatedSupportId = newSupports.findIndex(s => s.id === supportId)
+    ADD_NEW_REPLY_TO_SUPPORT (state, data) {
+        const reply = data.reply
+        const supportId = data.supportId
 
-        newSupports[updatedSupportId].replies.unshift(reply)
-
-        state.support.data = newSupports
+        Object.entries(state.supports.data).forEach(([key, support]) => {
+            if (support.id === supportId) state.supports.data[`${key}`].replies.push(reply)
+        })
     }
 }
 
