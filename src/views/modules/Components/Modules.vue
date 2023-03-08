@@ -23,7 +23,9 @@
             v-show="module.id == showModule"
         >
           <li
-            class="active"
+            :class="{
+                'active' : lesson.id === currentLesson.id
+            }"
             v-for="lesson in module.lessons"
             :key="lesson.id"
             @click.prevent="addLessonPlayer(lesson)"
@@ -64,6 +66,8 @@ import { useStore } from 'vuex';
         showModule.value = module_id
       }
 
+      const currentLesson = computed(() => store.state.courses.lessonPlayer)
+
       const addLessonPlayer = (lesson) => {
         store.commit('SET_LESSON_PLAYER', lesson)
       }
@@ -74,7 +78,8 @@ import { useStore } from 'vuex';
         modules,
         showModule,
         toogleModule,
-        addLessonPlayer
+        addLessonPlayer,
+        currentLesson
       }
     }
   }
