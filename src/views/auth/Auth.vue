@@ -86,7 +86,6 @@
   import { useStore } from "vuex";
 
   export default {
-    // eslint-disable-next-line vue/multi-word-component-names
     name: "Auth",
     setup() {
 

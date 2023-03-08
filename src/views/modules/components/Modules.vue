@@ -48,7 +48,6 @@ import { useStore } from 'vuex';
 
 
   export default {
-    // eslint-disable-next-line vue/multi-word-component-names
     name: "Modules",
     setup () {
       const store = useStore()

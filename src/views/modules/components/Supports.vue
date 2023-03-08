@@ -21,7 +21,6 @@
   import { computed, watch, ref } from "vue";
 
   export default {
-    // eslint-disable-next-line vue/multi-word-component-names
     name: "SupportsLesson",
     components: {Supports},
     setup() {

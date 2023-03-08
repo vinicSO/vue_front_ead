@@ -75,7 +75,6 @@ import { useStore } from 'vuex';
 import { notify } from "@kyvg/vue3-notification";
 
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
   name: "ForgotPassword",
   setup() {
     const store = useStore()

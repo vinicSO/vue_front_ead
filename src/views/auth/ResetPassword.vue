@@ -75,7 +75,6 @@
     import { ref } from "vue";
 
     export default {
-        // eslint-disable-next-line vue/multi-word-component-names
         name: "ResetPassword",
         props: {
             token: {

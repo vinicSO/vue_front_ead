@@ -35,7 +35,6 @@
   import { computed } from "vue";
 
   export default {
-    // eslint-disable-next-line vue/multi-word-component-names
     name: "Player",
     setup() {
       const store = useStore()

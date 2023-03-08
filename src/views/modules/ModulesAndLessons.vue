@@ -30,9 +30,9 @@
 
 <script>
 
-	import Modules from "@/views/modules/Components/Modules.vue";
-	import Player from "@/views/modules/Components/Player.vue";
-	import SupportsLesson from "@/views/modules/Components/Supports.vue";
+	import Modules from "@/views/modules/components/Modules.vue";
+	import Player from "@/views/modules/components/Player.vue";
+	import SupportsLesson from "@/views/modules/components/Supports.vue";
 	import { computed } from "vue";
 	import { useStore } from "vuex";
 
