@@ -3,7 +3,7 @@ const mutations = {
         state.supports = Object.assign({}, state.suports, supports)
     },
 
-    ADD_NEW_SUPPORTS (state, support) {
+    ADD_NEW_SUPPORT (state, support) {
         state.supports.data.unshift(support)
     },
 

@@ -40,7 +40,8 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import { useStore } from 'vuex';
 
     export default {
         name: 'ModalSupport',
@@ -57,18 +58,39 @@ import { ref } from 'vue';
             }
         },
         emits: ['closeModal'],
-        setup() {
-            const textArea = ref('')
+        setup(props, {emit}) {
+            props.supportReply
+
+            const store = useStore()
+
+            const lesson = computed(() =>store.state.courses.lessonPlayer)
+            const description = ref('')
             const loading = ref(false)
 
-            const sedForm = () => {
+            const sendForm = () => {
 
+                loading.value = true
+
+                const params = {
+                    lesson: lesson.value.id,
+                    description: description.value,
+                    status: 'P'
+                }
+
+                store.dispatch('createSupport', params)
+                    .then(() => {
+                        description.value = ""
+
+                        emit('closeModal')
+                    })
+                    .finally(() => loading.value = false)
             }
 
             return {
-                textArea,
+                description,
                 loading,
-                sendForm
+                sendForm,
+
             }
         }
     }
