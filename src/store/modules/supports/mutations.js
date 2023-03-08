@@ -16,6 +16,16 @@ const mutations = {
                 last_page: 0
             }
         }
+    },
+
+    ADD_NEW_REPLY (state, reply, supportId) {
+        newSupports = state.supports.data
+        
+        updatedSupportId = newSupports.findIndex(s => s.id === supportId)
+
+        newSupports[updatedSupportId].replies.unshift(reply)
+
+        state.support.data = newSupports
     }
 }
 

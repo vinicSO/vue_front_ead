@@ -7,8 +7,22 @@ const actions = {
     },
 
     createSupport ({commit}, params) {
-        return SupportService.storeSupportService(params)
+        return SupportService.storeSupport(params)
             .then(response => commit('ADD_NEW_SUPPORT', response.data))
+    },
+
+    createReply ({commit}, params) {
+        return SupportService.storeReply(params)
+            .then(response => {
+
+                const data = {
+                    reply: response.data,
+                    supportId: params.support
+                }
+
+                commit('ADD_NEW_REPLY_TO_SUPPORT', data)
+            }
+        )
     }
 }
 
