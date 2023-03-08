@@ -6,15 +6,22 @@
         <span class="icon far fa-stream"></span>
       </div>
       <div
-        class="modules"
+        :class="[
+            'modules',
+            module.id == showModule ? 'active' : ''
+        ]"
         v-for="module in modules"
         :key="module.id"
+        @click.prevent="toogleModule(module.id)"
       >
         <div class="name">
-          <span class="text">Modulo 1</span>
+          <span class="text">{{ module.name }}</span>
           <span class="icon fas fa-sort-down"></span>
         </div>
-        <ul class="classes">
+        <ul
+            class="classes"
+            v-show="module.id == showModule"
+        >
           <li
             class="active"
             v-for="lesson in module.lessons"
@@ -33,7 +40,7 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 
 
@@ -43,13 +50,25 @@ import { useStore } from 'vuex';
     setup () {
       const store = useStore()
 
+      const showModule = ref('0')
 
-      const course = computed(() => store.state.courses.courseSelected)
+      const toogleModule = (module_id) => {
+
+        if (showModule.value == module_id) {
+          showModule.value = '0'
+
+          return
+        }
+
+        showModule.value = module_id
+      }
+
       const modules = computed(() => store.state.courses.courseSelected.modules)
 
       return {
-        course,
-        modules
+        modules,
+        showModule,
+        toogleModule
       }
     }
   }
