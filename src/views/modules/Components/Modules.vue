@@ -20,7 +20,10 @@
             v-for="lesson in module.lessons"
             :key="lesson.id"
           >
-            <span class="check active fas fa-check"></span>
+            <span
+              class="check active fas fa-check"
+              v-if="lesson.views.length > 0"
+            ></span>
             <span class="nameLesson">{{ lesson.name }}</span>
           </li>
         </ul>
