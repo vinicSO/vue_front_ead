@@ -19,9 +19,17 @@
             <span class="text">{{ support.description }}</span>
           </div>
         </div>
-        <button class="btn primary">Ocultar respostas</button>
+        <button v-if="showSupport === support.id" class="btn primary" @click.prevent="showSupport = '0'">
+          <span>Ocultar respostas</span>
+        </button>
+        <button v-else class="btn primary" @click.prevent="showSupport = support.id">
+          <span>Exibir respostas ({{ support.replies.length }})</span>
+        </button>
       </div>
-      <div class="answersContent">
+      <div
+        class="answersContent"
+        v-show="support.id === showSupport"
+      >
         <div
           :class="[
             'commentContent',
@@ -60,17 +68,20 @@
 
 <script>
   import { useStore } from 'vuex';
-  import { computed } from 'vue';
+  import { computed, ref } from 'vue';
 
   export default {
     name: "Supports",
     setup() {
       const store = useStore()
 
+      const showSupport = ref('0')
+
       const supports = computed(() => store.state.supports.supports)
 
       return {
-        supports
+        supports,
+        showSupport
       }
     }
   }
