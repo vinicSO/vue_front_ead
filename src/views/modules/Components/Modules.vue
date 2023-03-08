@@ -26,6 +26,7 @@
             class="active"
             v-for="lesson in module.lessons"
             :key="lesson.id"
+            @click.prevent="addLessonPlayer(lesson)"
           >
             <span
               class="check active fas fa-check"
@@ -63,12 +64,17 @@ import { useStore } from 'vuex';
         showModule.value = module_id
       }
 
+      const addLessonPlayer = (lesson) => {
+        store.commit('SET_LESSON_PLAYER', lesson)
+      }
+
       const modules = computed(() => store.state.courses.courseSelected.modules)
 
       return {
         modules,
         showModule,
-        toogleModule
+        toogleModule,
+        addLessonPlayer
       }
     }
   }
