@@ -39,4 +39,19 @@ export default class AuthService extends BasicService {
                 )
         })
     }
+
+    static async logout (params) {
+
+        return new Promise((resolve, reject) => {
+
+            this.request({auth: true})
+                .post('/logout', params)
+                .then(() => {
+                    localStorage.removeItem(TOKEN_NAME)
+
+                    resolve('ok')
+                })
+                .catch(error => reject(error.response))
+        })
+    }
 }

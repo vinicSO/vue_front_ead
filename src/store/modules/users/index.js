@@ -31,8 +31,7 @@ export default {
             return AuthService.auth(params)
                 .then(() => dispatch('getUserAuth'))
         },
-        forgotPassword({ state }, params) {
-            state.loggedIn
+        forgotPassword(_, params) {
             return ResetPasswordService.forgotPassword(params)
         },
         getUserAuth ({commit}) {
@@ -40,6 +39,13 @@ export default {
 
             AuthService.getUserAuth()
                 .then(response => commit('SET_USER', response.data))
+                .finally(() => commit('TOGGLE_LOADING', false))
+        },
+        logout ({commit}) {
+            commit('TOGGLE_LOADING', true)
+
+            return AuthService.logout()
+                .then(() => commit('LOGOUT'))
                 .finally(() => commit('TOGGLE_LOADING', false))
         }
     }
