@@ -29,8 +29,9 @@ export default class AuthService extends BasicService {
 
         return new Promise((resolve, reject) => {
 
-            this.request({auth: true})
+            this.request({auth: true})  
                 .post('/me')
+                .then(response => resolve(response))
                 .catch(error => {
                     localStorage.removeItem(TOKEN_NAME)
 

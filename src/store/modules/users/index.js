@@ -39,7 +39,7 @@ export default {
             commit('TOGGLE_LOADING', true)
 
             AuthService.getUserAuth()
-                .then(response => commit('SET_USE', response.data))
+                .then(response => commit('SET_USER', response.data))
                 .finally(() => commit('TOGGLE_LOADING', false))
         }
     }
