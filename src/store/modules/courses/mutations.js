@@ -19,6 +19,18 @@ const mutations = {
             video: '',
             views: []
         }
+    },
+
+    MARK_VIEWED_LESSON (state) {
+        const modules = state.courseSelected.modules
+
+        modules.forEach((module) => {
+            module.lessons.forEach((lesson) => {
+                if (lesson.id === state.lessonPlayer.id) {
+                    lesson.views.push({})
+                }
+            })
+        });
     }
 }
 
